@@ -1,0 +1,27 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <div class="page-header">
+      <h1 class="page-title">Mis favoritos</h1>
+      <p class="page-subtitle">Los lugares que has guardado</p>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-wrapper">
+    <app-empty-state
+      *ngIf="!loading && favorites.length === 0"
+      icon="heart-outline"
+      title="Aun no tienes favoritos"
+      message="Toca el corazon en cualquier restaurante para guardarlo aqui">
+    </app-empty-state>
+
+    <app-restaurant-card
+      *ngFor="let restaurant of favorites"
+      [restaurant]="restaurant"
+      [isFavorite]="true"
+      (cardClick)="goToDetail($event)"
+      (favoriteClick)="removeFavorite($event)">
+    </app-restaurant-card>
+  </div>
+</ion-content>

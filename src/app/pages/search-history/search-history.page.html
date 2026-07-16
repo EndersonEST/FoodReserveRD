@@ -1,0 +1,34 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-wrapper">
+    <div class="header-row">
+      <h1 class="page-title">Historial</h1>
+      <ion-button fill="clear" size="small" *ngIf="history.length > 0" (click)="clearHistory()">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Limpiar
+      </ion-button>
+    </div>
+
+    <app-empty-state
+      *ngIf="history.length === 0"
+      icon="time-outline"
+      title="Sin busquedas recientes"
+      message="Aqui apareceran los lugares que has consultado">
+    </app-empty-state>
+
+    <div class="history-item" *ngFor="let entry of history">
+      <ion-icon name="location-outline"></ion-icon>
+      <div class="history-info">
+        <p class="history-label">{{ entry.label }}</p>
+        <p class="history-meta">{{ formatDate(entry.createdAt) }} - {{ entry.resultCount }} resultados</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

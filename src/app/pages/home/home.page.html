@@ -1,0 +1,59 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <div class="home-header">
+      <div>
+        <p class="page-subtitle" style="margin-bottom: 2px;">Hola de nuevo</p>
+        <h1 class="page-title">Restaurantes cerca de ti</h1>
+      </div>
+      <button class="history-btn" (click)="goToHistory()">
+        <ion-icon name="time-outline"></ion-icon>
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="loadRestaurants($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="content-wrapper">
+    <div class="location-pill" *ngIf="currentLabel && !loading">
+      <ion-icon name="location-outline"></ion-icon>
+      <span>{{ currentLabel }}</span>
+    </div>
+
+    <ng-container *ngIf="loading">
+      <app-skeleton-card *ngFor="let i of [1,2,3,4,5]"></app-skeleton-card>
+    </ng-container>
+
+    <ng-container *ngIf="!loading && errorMessage">
+      <app-empty-state
+        icon="alert-circle-outline"
+        title="Algo salio mal"
+        [message]="errorMessage">
+      </app-empty-state>
+      <ion-button expand="block" fill="outline" class="round-btn" (click)="loadRestaurants()">
+        <ion-icon name="refresh-outline" slot="start"></ion-icon>
+        Reintentar
+      </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="!loading && !errorMessage && restaurants.length === 0">
+      <app-empty-state
+        title="No hay restaurantes cerca"
+        message="Prueba moverte a otra zona o revisa tu conexion">
+      </app-empty-state>
+    </ng-container>
+
+    <ng-container *ngIf="!loading && !errorMessage">
+      <app-restaurant-card
+        *ngFor="let restaurant of restaurants"
+        [restaurant]="restaurant"
+        [isFavorite]="favoriteIds.has(restaurant.id)"
+        (cardClick)="goToDetail($event)"
+        (favoriteClick)="onFavoriteToggle($event)">
+      </app-restaurant-card>
+    </ng-container>
+  </div>
+</ion-content>
