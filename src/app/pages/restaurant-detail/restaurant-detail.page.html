@@ -1,0 +1,112 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="restaurant">
+
+  <div class="detail-hero">
+    <div class="hero-icon">
+      <ion-icon name="pricetag-outline"></ion-icon>
+    </div>
+
+    <button class="fav-fab" (click)="toggleFavorite()">
+      <ion-icon
+        [name]="isFavorite ? 'heart' : 'heart-outline'"
+        [class.active]="isFavorite">
+      </ion-icon>
+    </button>
+  </div>
+
+  <div class="detail-body">
+
+    <h1>{{ restaurant.nombre }}</h1>
+
+    <span class="category-chip">
+      {{ restaurant.categoria }}
+    </span>
+
+    <div class="info-row">
+      <ion-icon name="location-outline"></ion-icon>
+      <span>{{ restaurant.direccion || 'Dirección no disponible' }}</span>
+    </div>
+
+    <div class="info-row" *ngIf="restaurant.telefono">
+      <ion-icon name="call-outline"></ion-icon>
+      <span>{{ restaurant.telefono }}</span>
+    </div>
+
+    <div class="info-row" *ngIf="restaurant.website">
+      <ion-icon name="globe-outline"></ion-icon>
+      <span class="link-text">{{ restaurant.website }}</span>
+    </div>
+
+    <!-- BOTÓN PARA MOSTRAR LA RUTA -->
+    <ion-button
+      expand="block"
+      color="primary"
+      class="round-btn"
+      (click)="mostrarRuta()">
+
+      <ion-icon
+        slot="start"
+        name="map-outline">
+      </ion-icon>
+
+      Cómo llegar
+
+    </ion-button>
+
+    <!-- MAPA -->
+    <div
+      id="map"
+      style="
+        width:100%;
+        height:400px;
+        margin-top:15px;
+        border-radius:12px;
+        overflow:hidden;">
+    </div>
+
+    <div class="action-buttons">
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="round-btn"
+        *ngIf="restaurant.telefono"
+        (click)="call()">
+
+        <ion-icon
+          name="call-outline"
+          slot="start">
+        </ion-icon>
+
+        Llamar
+
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        fill="clear"
+        class="round-btn"
+        *ngIf="restaurant.website"
+        (click)="openWebsite()">
+
+        <ion-icon
+          name="globe-outline"
+          slot="start">
+        </ion-icon>
+
+        Visitar sitio web
+
+      </ion-button>
+
+    </div>
+
+  </div>
+
+</ion-content>

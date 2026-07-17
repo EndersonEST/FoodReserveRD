@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <div class="page-header">
+      <h1 class="page-title">Escanear QR</h1>
+      <p class="page-subtitle">Escanea el codigo de un restaurante o menu</p>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="scanner-wrapper">
+    <div class="scan-circle" [class.scanning]="scanning">
+      <ion-icon name="qr-code-outline"></ion-icon>
+    </div>
+
+    <p class="scan-hint" *ngIf="!isSupported()">
+      El escaneo con camara solo funciona en la app instalada en un dispositivo Android.
+      Aqui en el navegador puedes ver como se veria la pantalla.
+    </p>
+
+    <ion-button class="round-btn" expand="block" [disabled]="scanning" (click)="startScan()">
+      <ion-icon name="scan-outline" slot="start"></ion-icon>
+      {{ scanning ? 'Escaneando...' : 'Iniciar escaneo' }}
+    </ion-button>
+
+    <div class="last-result" *ngIf="lastResult">
+      <p class="result-label">Ultimo resultado ({{ lastResult.type }})</p>
+      <p class="result-value">{{ lastResult.raw }}</p>
+    </div>
+  </div>
+</ion-content>

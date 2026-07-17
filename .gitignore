@@ -1,0 +1,11 @@
+node_modules/
+www/
+dist/
+out-tsc/
+.angular/
+android/app/build/
+android/.gradle/
+android/capacitor-cordova-android-plugins/
+.idea/
+*.iml
+.DS_Store

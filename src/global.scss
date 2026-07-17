@@ -1,0 +1,51 @@
+@import "@ionic/angular/css/core.css";
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+@import "leaflet/dist/leaflet.css";
+
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  margin: 0 0 16px 0;
+}
+
+.card-shadow {
+  box-shadow: var(--food-card-shadow);
+}
+
+.round-btn {
+  --border-radius: 999px;
+}
+
+ion-tab-bar {
+  --background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+ion-toolbar {
+  --background: transparent;
+}

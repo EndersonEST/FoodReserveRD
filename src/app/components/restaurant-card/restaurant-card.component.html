@@ -1,0 +1,21 @@
+<div class="restaurant-card card-shadow" (click)="cardClick.emit(restaurant)">
+  <div class="card-thumb">
+    <span>{{ restaurant.categoria.charAt(0).toUpperCase() }}</span>
+  </div>
+
+  <div class="card-body">
+    <div class="card-header">
+      <h3>{{ restaurant.nombre }}</h3>
+      <button class="fav-btn" (click)="onFavoriteClick($event)">
+        <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'" [class.active]="isFavorite"></ion-icon>
+      </button>
+    </div>
+
+    <ion-badge color="tertiary">{{ restaurant.categoria }}</ion-badge>
+
+    <p class="card-address">
+      <ion-icon name="location-outline"></ion-icon>
+      {{ restaurant.direccion || 'Direccion no disponible' }}
+    </p>
+  </div>
+</div>

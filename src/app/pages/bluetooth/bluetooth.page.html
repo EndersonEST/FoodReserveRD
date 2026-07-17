@@ -1,0 +1,55 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <div class="page-header">
+      <h1 class="page-title">Bluetooth</h1>
+      <p class="page-subtitle">Busca y conecta dispositivos cercanos</p>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-wrapper">
+    <p class="hint-text" *ngIf="!isSupported()">
+      Tu navegador no soporta Bluetooth. Esta funcion estara disponible al instalar la app en Android
+      o desde un navegador compatible con Web Bluetooth, como Chrome en desktop.
+    </p>
+
+    <ion-button class="round-btn" expand="block" [disabled]="scanning" (click)="startScan()">
+      <ion-icon name="bluetooth-outline" slot="start"></ion-icon>
+      {{ scanning ? 'Buscando dispositivos...' : 'Buscar dispositivos' }}
+    </ion-button>
+
+    <div class="scan-status" *ngIf="scanning">
+      <ion-spinner name="crescent"></ion-spinner>
+      <span>Escaneando...</span>
+    </div>
+
+    <app-empty-state
+      *ngIf="!scanning && devices.length === 0"
+      icon="radio-outline"
+      title="No hay dispositivos"
+      message="Presiona buscar dispositivos para ver los que esten cerca">
+    </app-empty-state>
+
+    <div class="device-list" *ngIf="devices.length > 0">
+      <div class="device-item" *ngFor="let device of devices">
+        <div class="device-info">
+          <ion-icon name="bluetooth-outline"></ion-icon>
+          <div>
+            <p class="device-name">{{ device.name }}</p>
+            <p class="device-id">{{ device.deviceId }}</p>
+          </div>
+        </div>
+
+        <ion-button
+          size="small"
+          [fill]="connectedId === device.deviceId ? 'solid' : 'outline'"
+          [color]="connectedId === device.deviceId ? 'success' : 'primary'"
+          (click)="connectedId === device.deviceId ? disconnect() : connect(device)">
+          <ion-icon *ngIf="connectedId === device.deviceId" name="checkmark-circle" slot="start"></ion-icon>
+          {{ connectedId === device.deviceId ? 'Conectado' : 'Conectar' }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
